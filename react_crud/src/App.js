@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import "./styles.css"
 
 
 function App() {
@@ -108,7 +108,7 @@ function App() {
         </tr>)
     });
     return(
-      <table className="table table-striped">
+      <table className="table table-striped"  style={{width: "100%"}}>
           <thead>
               <tr>
                  
@@ -168,7 +168,7 @@ function App() {
 
 
 
-<div class="container">
+<div  style= {{width: "100%", marginLeft:"0", marginRight:"0"}}>
         <br />
         {
         Lists(alldata)  
@@ -234,6 +234,7 @@ function App() {
                                             className="w-full px-3 py-2 mb-3 text-base leading-medium text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                                             id="lessonPerWeek"
                                             type="text"
+                                            size="100"
                                             value={entry}
                                             onChange={(e) =>
                                                 setEntry(e.target.value)
