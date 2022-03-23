@@ -28,22 +28,9 @@ function App() {
         fetchMyAPI();
   },[x]);
 
-  /*function getLists() {
-    this.setState({ loading: true }, () => {
-      fetch("http://localhost:5000/posts")
-        .then(res => res.json())
-        .then(result =>
-          {
-            setLoading(false);
-            setAlldata(result);
-          }
-        )
-        .catch(console.log);
-    });
-  }*/
 
-  const createList = () => {
-     fetch("http://localhost:3002/posts", {
+  const createList = async () => {
+    await fetch("http://localhost:3002/posts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -69,8 +56,8 @@ function App() {
     
   }
 
-  const updateList =  (id) => {
-     fetch("http://localhost:3002/posts/" + id, {
+  const updateList = async (id) => {
+    await fetch("http://localhost:3002/posts/" + id, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json"
@@ -87,8 +74,8 @@ function App() {
       }).then(setX(x+1));
   }
 
-  const deleteList =  (id) => {
-     fetch("http://localhost:3002/posts/" + id, {
+  const deleteList = async (id) => {
+    await fetch("http://localhost:3002/posts/" + id, {
       method: "DELETE"
     })
       .then(res => res.json())
@@ -103,7 +90,7 @@ function App() {
 
 
 
-  function Lists(props) {
+  const Lists = (props) => {
     var rows = [];
     props.forEach(element => {
         rows.push(
@@ -140,10 +127,8 @@ function App() {
 
     return (
 
-      
       <div>
       
-
       <nav class="navbar navbar-inverse navbar-static-top">
   <div class="container-fluid">
    
@@ -185,33 +170,8 @@ function App() {
 
 <div class="container">
         <br />
-        {Lists(alldata)
-
-      /*    
-        alldata.map((item) =>  <li key={item.id} style={{display: "flex", justifyContent: "space-between"}}>
-          <div>
-          {item.id} 
-          </div>
-          <div>
-          {item.title}
-          </div>
-          <div>
-          {item.author}
-          </div>
-          <div>
-          {item.entry}
-          </div>
-          <div>
-            <button onClick={() => {
-              openUpdateForm(item.id);
-              setIsCreate(false);
-            }}>Update</button>
-          </div>
-          <div>
-            <button onClick={() => deleteList(item.id)}>Delete</button>
-          </div>
-        </li>)*/
-        
+        {
+        Lists(alldata)  
         }
         </div>
       
@@ -295,11 +255,11 @@ function App() {
                                         className="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
                                         type="button"
                                         style={{ transition: "all .15s ease" }}
-                                        onClick={() => {
+                                        onClick={ async () => {
                                             if (isCreate) {
-                                              createList();
+                                             await createList();
                                             } else {
-                                              updateList(id);
+                                             await updateList(id);
                                             }
                                             setModal(false);
                                             setIsCreate(true);
