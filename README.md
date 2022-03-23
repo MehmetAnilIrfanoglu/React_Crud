@@ -12,7 +12,7 @@ In the project directory, you can run:
 
 ### `npm run dev`
 
-It allows to run React and Json Server at the same time
+It allows to run React and Json Server at the same time.\
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
