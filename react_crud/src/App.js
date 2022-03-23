@@ -14,7 +14,7 @@ function App() {
       
 
         async function fetchMyAPI() {
-          fetch("http://localhost:3001/posts")
+          fetch("http://localhost:3002/posts")
           .then(res => res.json())
           .then(result =>
             {
@@ -41,7 +41,7 @@ function App() {
   }*/
 
   const createList = () => {
-     fetch("http://localhost:3001/posts", {
+     fetch("http://localhost:3002/posts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -56,7 +56,7 @@ function App() {
   };
 
   const openUpdateForm = async (id) => {
-     await fetch("http://localhost:3001/posts/" + id)
+     await fetch("http://localhost:3002/posts/" + id)
       .then(res => res.json())
       .then(result => {
         setId(result.id);
@@ -69,7 +69,7 @@ function App() {
   }
 
   const updateList =  (id) => {
-     fetch("http://localhost:3001/posts/" + id, {
+     fetch("http://localhost:3002/posts/" + id, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json"
@@ -86,7 +86,7 @@ function App() {
   }
 
   const deleteList =  (id) => {
-     fetch("http://localhost:3001/posts/" + id, {
+     fetch("http://localhost:3002/posts/" + id, {
       method: "DELETE"
     })
       .then(res => res.json())
