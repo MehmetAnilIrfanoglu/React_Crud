@@ -4,10 +4,15 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
+After clonning the repository:
+
+### `npm i`
+
 In the project directory, you can run:
 
-### `npm start`
+### `npm run dev`
 
+It allows to run React and Json Server at the same time
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
