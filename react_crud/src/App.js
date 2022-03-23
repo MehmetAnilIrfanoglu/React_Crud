@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 
+
+
 function App() {
   const [alldata, setAlldata] = useState([]);
   const [title, setTitle] = useState("");
@@ -48,11 +50,10 @@ function App() {
       },
       body: JSON.stringify({title, author, entry})
     }).then(
-        setTitle(""),
-        setAuthor(""),
-        setEntry(""),
-        setX(x+1)
-    );
+      setTitle(""),
+    setAuthor(""),
+    setEntry("")).then( setX(x+1)).then(setX(x+1));
+      
   };
 
   const openUpdateForm = async (id) => {
@@ -64,7 +65,7 @@ function App() {
         setAuthor(result.author);
         setEntry(result.entry);
         setModal(true);
-      });
+      }).then(setX(x+1));
     
   }
 
@@ -81,8 +82,9 @@ function App() {
         setTitle("");
         setAuthor("");
         setEntry("");
-        setX(x+1);
-      });
+        setIsCreate(true);
+        
+      }).then(setX(x+1));
   }
 
   const deleteList =  (id) => {
@@ -94,24 +96,99 @@ function App() {
         setTitle("");
         setAuthor("");
         setEntry("");
-        setX(x+1);
-      });
+        setIsCreate(true);
+       
+      }).then( setX(x+1));
   }
 
 
+
+  function Lists(props) {
+    var rows = [];
+    props.forEach(element => {
+        rows.push(
+        <tr key={element.id}>
+            
+            <td>{element.title}</td>
+            <td>{element.author}</td>
+            <td>{element.entry}</td>
+            <td>{ <button class="btn btn-primary" onClick={() => {
+              setIsCreate(false);
+              openUpdateForm(element.id);
+              
+            }}>Update</button>}</td>
+            <td>{  <button class="btn btn-primary" onClick={() => deleteList(element.id)}>Delete</button>}</td>
+        </tr>)
+    });
+    return(
+      <table className="table table-striped">
+          <thead>
+              <tr>
+                 
+                  <th>Title</th>
+                  <th>Author</th>
+                  <th>Entry</th>
+                  <th>Update</th>
+                  <th>Delete</th>
+              </tr>
+          </thead>
+        <tbody>{rows}</tbody>
+      </table>
+    )
+}
+
+
     return (
+
+      
       <div>
-      <div className="container">
-        <span className="title-bar">
-        <button  className="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1" onClick={() => {
-          setModal(!modal);
+      
+
+      <nav class="navbar navbar-inverse navbar-static-top">
+  <div class="container-fluid">
+   
+    <div class="navbar-header" >
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://github.com/MehmetAnilIrfanoglu/React_Crud/tree/master/react_crud">React Crud</a>
+    </div>
+
+   
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+     
+     
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+        
+        <button  type="button" class="btn btn-primary navbar-btn"  onClick={() => {
           setIsCreate(true);
+          setModal(!modal);
+          
         }}>
-            Create list
+            Create Entry
           </button>
-        </span>
+       
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+
+
+<div class="container">
         <br />
-        {alldata.map((item) =>  <li key={item.id} style={{display: "flex", justifyContent: "space-between"}}>
+        {Lists(alldata)
+
+      /*    
+        alldata.map((item) =>  <li key={item.id} style={{display: "flex", justifyContent: "space-between"}}>
           <div>
           {item.id} 
           </div>
@@ -133,8 +210,11 @@ function App() {
           <div>
             <button onClick={() => deleteList(item.id)}>Delete</button>
           </div>
-        </li>)}
-      </div>
+        </li>)*/
+        
+        }
+        </div>
+      
       
       {modal ? (
                 <div>
@@ -222,6 +302,7 @@ function App() {
                                               updateList(id);
                                             }
                                             setModal(false);
+                                            setIsCreate(true);
                                         }}
                                     >
                                         {isCreate ? "Create" : "Update"}
